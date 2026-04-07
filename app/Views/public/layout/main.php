@@ -92,7 +92,7 @@
         /* Hero Section */
         .hero-section {
             background: linear-gradient(135deg, rgba(76, 29, 149, 0.95) 0%, rgba(124, 58, 237, 0.85) 50%, rgba(168, 85, 247, 0.75) 100%),
-                        url('images/Mithlesh-front.webp');
+                        url('images/mithlesh-front.webp');
             background-size: cover;
             background-position: center;
             padding: 140px 0 100px;

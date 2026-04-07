@@ -54,7 +54,7 @@
             <div class="col-lg-6">
                 <div style="background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 50px rgba(124, 58, 237, 0.15); position: relative; transition: all 0.3s ease;">
                     <div style="background: linear-gradient(135deg, rgba(76, 29, 149, 0.6) 0%, rgba(124, 58, 237, 0.5) 100%); padding: 20px; position: relative; overflow: hidden; min-height: 400px; display: flex; align-items: center; justify-content: center;">
-                        <img src="<?= base_url('images/Mithlesh_front.webp') ?>" alt="Mithlesh Nursing Home" style="max-width: 100%; max-height: 100%; object-fit: contain; position: relative; z-index: 2;">
+                        <img src="<?= base_url('images/mithlesh_front.webp') ?>" alt="Mithlesh Nursing Home" style="max-width: 100%; max-height: 100%; object-fit: contain; position: relative; z-index: 2;">
                     </div>
                 </div>
             </div>
