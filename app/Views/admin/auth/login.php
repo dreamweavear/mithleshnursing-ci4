@@ -122,7 +122,7 @@
             </form>
             
             <div class="mt-4 text-center text-muted">
-                <small>Default Login:<br>Email: admin@Mithleshnursing.com<br>Password: admin123</small>
+                <small>Default Login:<br>Email: <br>Password: </small>
             </div>
         </div>
     </div>
