@@ -71,6 +71,8 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('bills/create', 'Admin\Bills::create');
     $routes->post('bills/store', 'Admin\Bills::store');
     $routes->get('bills/view/(:num)', 'Admin\Bills::view/$1');
+    $routes->get('bills/edit/(:num)', 'Admin\Bills::edit/$1');
+    $routes->post('bills/update/(:num)', 'Admin\Bills::update/$1');
     $routes->get('bills/print/(:num)', 'Admin\Bills::print/$1');
     $routes->post('bills/update-payment/(:num)', 'Admin\Bills::updatePayment/$1');
     $routes->get('bills/delete/(:num)', 'Admin\Bills::delete/$1');

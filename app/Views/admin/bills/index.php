@@ -47,6 +47,9 @@
                                 <a href="<?= base_url('admin/bills/view/' . $bill['id']) ?>" class="btn btn-sm btn-info me-1" title="View">
                                     <i class="bi bi-eye"></i>
                                 </a>
+                                <a href="<?= site_url('/admin/bills/edit/' . $bill['id']) ?>" class="btn btn-sm btn-primary me-1" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
                                 <a href="<?= base_url('admin/bills/print/' . $bill['id']) ?>" class="btn btn-sm btn-secondary me-1" title="Print" target="_blank">
                                     <i class="bi bi-printer"></i>
                                 </a>

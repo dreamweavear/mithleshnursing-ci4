@@ -150,6 +150,82 @@ class Bills extends BaseController
                         ->with('success', 'Payment status updated.');
     }
     
+    public function edit($id)
+    {
+        $bill = $this->billModel->find($id);
+
+        if (!$bill) {
+            return redirect()->to('admin/bills')
+                            ->with('error', 'Bill not found.');
+        }
+
+        $data = [
+            'title' => 'Edit Bill - Mithlesh Nursing Home',
+            'bill' => $bill,
+            'patients' => $this->patientModel->findAll(),
+        ];
+
+        return view('admin/bills/edit', $data);
+    }
+
+    public function update($id)
+    {
+        $bill = $this->billModel->find($id);
+
+        if (!$bill) {
+            return redirect()->to('admin/bills')
+                            ->with('error', 'Bill not found.');
+        }
+
+        $rules = [
+            'patient_id' => 'required|integer',
+            'admission_date' => 'permit_empty|valid_date',
+            'discharge_date' => 'permit_empty|valid_date',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()
+                            ->withInput()
+                            ->with('errors', $this->validator->getErrors());
+        }
+
+        $roomCharges = $this->request->getPost('room_charges') ?? 0;
+        $doctorFees = $this->request->getPost('doctor_fees') ?? 0;
+        $medicineCharges = $this->request->getPost('medicine_charges') ?? 0;
+        $testCharges = $this->request->getPost('test_charges') ?? 0;
+        $otherCharges = $this->request->getPost('other_charges') ?? 0;
+        $discount = $this->request->getPost('discount') ?? 0;
+
+        $totalAmount = $roomCharges + $doctorFees + $medicineCharges + $testCharges + $otherCharges;
+        $netAmount = $totalAmount - $discount;
+
+        $data = [
+            'patient_id' => $this->request->getPost('patient_id'),
+            'admission_date' => $this->request->getPost('admission_date'),
+            'discharge_date' => $this->request->getPost('discharge_date'),
+            'room_charges' => $roomCharges,
+            'doctor_fees' => $doctorFees,
+            'medicine_charges' => $medicineCharges,
+            'test_charges' => $testCharges,
+            'other_charges' => $otherCharges,
+            'total_amount' => $totalAmount,
+            'discount' => $discount,
+            'net_amount' => $netAmount,
+            'payment_status' => $this->request->getPost('payment_status') ?? 'Pending',
+            'payment_method' => $this->request->getPost('payment_method'),
+            'notes' => $this->request->getPost('notes'),
+        ];
+
+        $this->billModel->update($id, $data);
+
+        $this->patientModel->update($this->request->getPost('patient_id'), [
+            'bill_amount' => $netAmount
+        ]);
+
+        return redirect()->to('admin/bills')
+                        ->with('success', 'Bill updated successfully.');
+    }
+
     public function delete($id)
     {
         $bill = $this->billModel->find($id);
