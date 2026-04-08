@@ -44,9 +44,9 @@
             <div class="row">
                 <div class="col-8">
                     <h2 class="bill-title mb-2">Mithlesh Nursing Home</h2>
-                    <p class="mb-1">Besides Hero Honda Agency, NH-7, Allahabad Road, Urrhat,Rewa(M.P.)</p>
-                    <p class="mb-1">Phone: +91 9424507187, 9229426486</p>
-                    <p class="mb-0">Email: shrivastavaramprakash@yahoo.com</p>
+                    <p class="mb-1">Behind Pawar Gas Godown, Allahabad Road, Urrhat,Rewa(M.P.)</p>
+                    <p class="mb-1">Phone: +91 9770921099, 7024745594</p>
+                    <p class="mb-0">Email: mithleshnursinghome@gmail.com</p>
                 </div>
                 <div class="col-4 text-end">
                     <h4 class="text-muted">INVOICE</h4>
