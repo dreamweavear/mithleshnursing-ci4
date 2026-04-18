@@ -52,32 +52,50 @@ class Bills extends BaseController
                             ->with('errors', $this->validator->getErrors());
         }
         
-        $roomCharges = $this->request->getPost('room_charges') ?? 0;
-        $doctorFees = $this->request->getPost('doctor_fees') ?? 0;
-        $medicineCharges = $this->request->getPost('medicine_charges') ?? 0;
-        $testCharges = $this->request->getPost('test_charges') ?? 0;
-        $otherCharges = $this->request->getPost('other_charges') ?? 0;
-        $discount = $this->request->getPost('discount') ?? 0;
-        
-        $totalAmount = $roomCharges + $doctorFees + $medicineCharges + $testCharges + $otherCharges;
-        $netAmount = $totalAmount - $discount;
-        
+        $roomChargePerDay  = (float)($this->request->getPost('room_charge_per_day') ?? 0);
+        $noOfDays          = (int)($this->request->getPost('no_of_days') ?? 0);
+        $roomCharges       = $roomChargePerDay * $noOfDays;
+        $doctorFees        = (float)($this->request->getPost('doctor_fees') ?? 0);
+        $medicineCharges   = (float)($this->request->getPost('medicine_charges') ?? 0);
+        $testCharges       = (float)($this->request->getPost('test_charges') ?? 0);
+        $surgeryCharges    = (float)($this->request->getPost('surgery_charges') ?? 0);
+        $anaesthesiaCharges = (float)($this->request->getPost('anaesthesia_charges') ?? 0);
+        $otCharges         = (float)($this->request->getPost('ot_charges') ?? 0);
+        $nursingCharges    = (float)($this->request->getPost('nursing_charges') ?? 0);
+        $assistanceCharges = (float)($this->request->getPost('assistance_charges') ?? 0);
+        $otherCharges      = (float)($this->request->getPost('other_charges') ?? 0);
+        $discountPercent   = (float)($this->request->getPost('discount_percent') ?? 0);
+
+        $totalAmount = $roomCharges + $doctorFees + $medicineCharges + $testCharges
+            + $surgeryCharges + $anaesthesiaCharges + $otCharges
+            + $nursingCharges + $assistanceCharges + $otherCharges;
+        $discount    = round($totalAmount * $discountPercent / 100, 2);
+        $netAmount   = $totalAmount - $discount;
+
         $data = [
-            'bill_number' => $this->request->getPost('bill_number'),
-            'patient_id' => $this->request->getPost('patient_id'),
-            'admission_date' => $this->request->getPost('admission_date'),
-            'discharge_date' => $this->request->getPost('discharge_date'),
-            'room_charges' => $roomCharges,
-            'doctor_fees' => $doctorFees,
-            'medicine_charges' => $medicineCharges,
-            'test_charges' => $testCharges,
-            'other_charges' => $otherCharges,
-            'total_amount' => $totalAmount,
-            'discount' => $discount,
-            'net_amount' => $netAmount,
-            'payment_status' => $this->request->getPost('payment_status') ?? 'Pending',
-            'payment_method' => $this->request->getPost('payment_method'),
-            'notes' => $this->request->getPost('notes'),
+            'bill_number'        => $this->request->getPost('bill_number'),
+            'patient_id'         => $this->request->getPost('patient_id'),
+            'admission_date'     => $this->request->getPost('admission_date'),
+            'discharge_date'     => $this->request->getPost('discharge_date'),
+            'room_charge_per_day' => $roomChargePerDay,
+            'no_of_days'         => $noOfDays,
+            'room_charges'       => $roomCharges,
+            'doctor_fees'        => $doctorFees,
+            'medicine_charges'   => $medicineCharges,
+            'test_charges'       => $testCharges,
+            'surgery_charges'    => $surgeryCharges,
+            'anaesthesia_charges' => $anaesthesiaCharges,
+            'ot_charges'         => $otCharges,
+            'nursing_charges'    => $nursingCharges,
+            'assistance_charges' => $assistanceCharges,
+            'other_charges'      => $otherCharges,
+            'total_amount'       => $totalAmount,
+            'discount_percent'   => $discountPercent,
+            'discount'           => $discount,
+            'net_amount'         => $netAmount,
+            'payment_status'     => $this->request->getPost('payment_status') ?? 'Pending',
+            'payment_method'     => $this->request->getPost('payment_method'),
+            'notes'              => $this->request->getPost('notes'),
         ];
         
         $this->billModel->insert($data);
@@ -189,31 +207,49 @@ class Bills extends BaseController
                             ->with('errors', $this->validator->getErrors());
         }
 
-        $roomCharges = $this->request->getPost('room_charges') ?? 0;
-        $doctorFees = $this->request->getPost('doctor_fees') ?? 0;
-        $medicineCharges = $this->request->getPost('medicine_charges') ?? 0;
-        $testCharges = $this->request->getPost('test_charges') ?? 0;
-        $otherCharges = $this->request->getPost('other_charges') ?? 0;
-        $discount = $this->request->getPost('discount') ?? 0;
+        $roomChargePerDay  = (float)($this->request->getPost('room_charge_per_day') ?? 0);
+        $noOfDays          = (int)($this->request->getPost('no_of_days') ?? 0);
+        $roomCharges       = $roomChargePerDay * $noOfDays;
+        $doctorFees        = (float)($this->request->getPost('doctor_fees') ?? 0);
+        $medicineCharges   = (float)($this->request->getPost('medicine_charges') ?? 0);
+        $testCharges       = (float)($this->request->getPost('test_charges') ?? 0);
+        $surgeryCharges    = (float)($this->request->getPost('surgery_charges') ?? 0);
+        $anaesthesiaCharges = (float)($this->request->getPost('anaesthesia_charges') ?? 0);
+        $otCharges         = (float)($this->request->getPost('ot_charges') ?? 0);
+        $nursingCharges    = (float)($this->request->getPost('nursing_charges') ?? 0);
+        $assistanceCharges = (float)($this->request->getPost('assistance_charges') ?? 0);
+        $otherCharges      = (float)($this->request->getPost('other_charges') ?? 0);
+        $discountPercent   = (float)($this->request->getPost('discount_percent') ?? 0);
 
-        $totalAmount = $roomCharges + $doctorFees + $medicineCharges + $testCharges + $otherCharges;
-        $netAmount = $totalAmount - $discount;
+        $totalAmount = $roomCharges + $doctorFees + $medicineCharges + $testCharges
+            + $surgeryCharges + $anaesthesiaCharges + $otCharges
+            + $nursingCharges + $assistanceCharges + $otherCharges;
+        $discount    = round($totalAmount * $discountPercent / 100, 2);
+        $netAmount   = $totalAmount - $discount;
 
         $data = [
-            'patient_id' => $this->request->getPost('patient_id'),
-            'admission_date' => $this->request->getPost('admission_date'),
-            'discharge_date' => $this->request->getPost('discharge_date'),
-            'room_charges' => $roomCharges,
-            'doctor_fees' => $doctorFees,
-            'medicine_charges' => $medicineCharges,
-            'test_charges' => $testCharges,
-            'other_charges' => $otherCharges,
-            'total_amount' => $totalAmount,
-            'discount' => $discount,
-            'net_amount' => $netAmount,
-            'payment_status' => $this->request->getPost('payment_status') ?? 'Pending',
-            'payment_method' => $this->request->getPost('payment_method'),
-            'notes' => $this->request->getPost('notes'),
+            'patient_id'         => $this->request->getPost('patient_id'),
+            'admission_date'     => $this->request->getPost('admission_date'),
+            'discharge_date'     => $this->request->getPost('discharge_date'),
+            'room_charge_per_day' => $roomChargePerDay,
+            'no_of_days'         => $noOfDays,
+            'room_charges'       => $roomCharges,
+            'doctor_fees'        => $doctorFees,
+            'medicine_charges'   => $medicineCharges,
+            'test_charges'       => $testCharges,
+            'surgery_charges'    => $surgeryCharges,
+            'anaesthesia_charges' => $anaesthesiaCharges,
+            'ot_charges'         => $otCharges,
+            'nursing_charges'    => $nursingCharges,
+            'assistance_charges' => $assistanceCharges,
+            'other_charges'      => $otherCharges,
+            'total_amount'       => $totalAmount,
+            'discount_percent'   => $discountPercent,
+            'discount'           => $discount,
+            'net_amount'         => $netAmount,
+            'payment_status'     => $this->request->getPost('payment_status') ?? 'Pending',
+            'payment_method'     => $this->request->getPost('payment_method'),
+            'notes'              => $this->request->getPost('notes'),
         ];
 
         $this->billModel->update($id, $data);

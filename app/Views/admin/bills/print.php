@@ -85,7 +85,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Room Charges[&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;] x No of Days[ &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;]</td>
+                    <td>Room Charges [₹<?= number_format($bill['room_charge_per_day'] ?? 0, 2) ?>/day] x [<?= (int)($bill['no_of_days'] ?? 0) ?> days]</td>
                     <td class="text-end"><?= number_format($bill['room_charges'], 2) ?></td>
                 </tr>
                 <tr>
@@ -101,21 +101,41 @@
                     <td class="text-end"><?= number_format($bill['test_charges'], 2) ?></td>
                 </tr>
                 <tr>
-                    <td>Other Charges ( Surgeon, Aneastheasia, pediatrician, OT charges, Assistance Charges) </td>
-                    <td class="text-end"><?= number_format($bill['other_charges'], 2) ?></td> 
+                    <td>Surgery Charges</td>
+                    <td class="text-end"><?= number_format($bill['surgery_charges'] ?? 0, 2) ?></td>
+                </tr>
+                <tr>
+                    <td>Anaesthesia Charges</td>
+                    <td class="text-end"><?= number_format($bill['anaesthesia_charges'] ?? 0, 2) ?></td>
+                </tr>
+                <tr>
+                    <td>OT Charges</td>
+                    <td class="text-end"><?= number_format($bill['ot_charges'] ?? 0, 2) ?></td>
+                </tr>
+                <tr>
+                    <td>Nursing Charges</td>
+                    <td class="text-end"><?= number_format($bill['nursing_charges'] ?? 0, 2) ?></td>
+                </tr>
+                <tr>
+                    <td>Assistance Charges</td>
+                    <td class="text-end"><?= number_format($bill['assistance_charges'] ?? 0, 2) ?></td>
+                </tr>
+                <tr>
+                    <td>Other Charges</td>
+                    <td class="text-end"><?= number_format($bill['other_charges'], 2) ?></td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr class="table-light">
-                    <td class="text-end"><strong>Total Amount</strong></td>
+                    <td class="text-end"><strong>Subtotal</strong></td>
                     <td class="text-end"><strong><?= number_format($bill['total_amount'], 2) ?></strong></td>
                 </tr>
                 <tr>
-                    <td class="text-end">Discount</td>
+                    <td class="text-end">Discount (<?= number_format($bill['discount_percent'] ?? 0, 2) ?>%)</td>
                     <td class="text-end"><?= number_format($bill['discount'], 2) ?></td>
                 </tr>
                 <tr class="table-success">
-                    <td class="text-end"><strong>Net Amount</strong></td>
+                    <td class="text-end"><strong>Final Total</strong></td>
                     <td class="text-end"><strong style="font-size: 1.2em;"><?= number_format($bill['net_amount'], 2) ?></strong></td>
                 </tr>
             </tfoot>
