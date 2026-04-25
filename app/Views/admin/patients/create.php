@@ -117,10 +117,59 @@
             <textarea name="diagnosis" class="form-control" rows="3"><?= old('diagnosis') ?></textarea>
         </div>
         
+        <h5 class="mt-4 mb-3">Vital Signs at Registration <small class="text-muted fw-normal fs-6">(Optional)</small></h5>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label">BP (Blood Pressure)</label>
+                <input type="text" name="bp" class="form-control" placeholder="e.g. 120/80" value="<?= old('bp') ?>">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Pulse <small class="text-muted">(beats/min)</small></label>
+                <input type="number" name="pulse" class="form-control" placeholder="72" min="0" max="250" value="<?= old('pulse') ?>">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">SpO2 / Oxygen <small class="text-muted">(%)</small></label>
+                <input type="number" name="spo2" class="form-control" placeholder="98" min="0" max="100" value="<?= old('spo2') ?>">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label">RR (Respiration Rate) <small class="text-muted">(breaths/min)</small></label>
+                <input type="number" name="rr" class="form-control" placeholder="16" min="0" max="100" value="<?= old('rr') ?>">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Temperature <small class="text-muted">(°F)</small></label>
+                <input type="number" name="temperature" class="form-control" placeholder="98.6" min="90" max="115" step="0.1" value="<?= old('temperature') ?>">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Weight <small class="text-muted">(kg)</small></label>
+                <input type="number" name="weight" class="form-control" placeholder="65.5" min="0" max="300" step="0.1" value="<?= old('weight') ?>">
+            </div>
+        </div>
+        <div id="opdNote" class="alert alert-info py-2 mb-3" style="display:none;">
+            <i class="bi bi-info-circle me-2"></i>OPD patient: An appointment will be automatically created with these vitals.
+        </div>
+
         <div class="text-end">
             <button type="reset" class="btn btn-outline-secondary me-2">Reset</button>
             <button type="submit" class="btn btn-primary-custom">Save Patient</button>
         </div>
     </form>
 </div>
+
+<script>
+(function() {
+    var typeSelect = document.querySelector('select[name="patient_type"]');
+    var opdNote = document.getElementById('opdNote');
+    function checkType() {
+        if (typeSelect.value === 'OPD') {
+            opdNote.style.display = '';
+        } else {
+            opdNote.style.display = 'none';
+        }
+    }
+    typeSelect.addEventListener('change', checkType);
+    checkType();
+})();
+</script>
 <?= $this->endSection() ?>

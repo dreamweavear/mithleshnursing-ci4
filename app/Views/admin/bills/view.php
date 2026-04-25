@@ -7,6 +7,9 @@
         <a href="<?= base_url('admin/bills') ?>" class="btn btn-outline-secondary">
             <i class="bi bi-arrow-left me-2"></i>Back to List
         </a>
+        <a href="<?= base_url('admin/bills/edit/' . $bill['id']) ?>" class="btn btn-warning ms-2">
+            <i class="bi bi-pencil me-2"></i>Edit
+        </a>
         <a href="<?= base_url('admin/bills/print/' . $bill['id']) ?>" class="btn btn-secondary ms-2" target="_blank">
             <i class="bi bi-printer me-2"></i>Print
         </a>
@@ -51,7 +54,12 @@
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <td>Room Charges [₹<?= number_format($bill['room_charge_per_day'] ?? 0, 2) ?>/day] x [<?= (int)($bill['no_of_days'] ?? 0) ?> days]</td>
+                        <td>
+                            Room Charges
+                            <?php if (!empty($bill['room_rate']) || !empty($bill['room_days'])): ?>
+                                [₹<?= number_format($bill['room_rate'], 2) ?>/day] × [<?= (int)$bill['room_days'] ?> days]
+                            <?php endif; ?>
+                        </td>
                         <td class="text-end">₹<?= number_format($bill['room_charges'], 2) ?></td>
                     </tr>
                     <tr>
@@ -63,11 +71,11 @@
                         <td class="text-end">₹<?= number_format($bill['medicine_charges'], 2) ?></td>
                     </tr>
                     <tr>
-                        <td>Investigation Charges</td>
+                        <td>X-Ray /  C.Arm / Other Investigation Charges</td>
                         <td class="text-end">₹<?= number_format($bill['test_charges'], 2) ?></td>
                     </tr>
                     <tr>
-                        <td>Surgery Charges</td>
+                        <td>Surgeon Charges</td>
                         <td class="text-end">₹<?= number_format($bill['surgery_charges'] ?? 0, 2) ?></td>
                     </tr>
                     <tr>
@@ -83,11 +91,11 @@
                         <td class="text-end">₹<?= number_format($bill['nursing_charges'] ?? 0, 2) ?></td>
                     </tr>
                     <tr>
-                        <td>Assistance Charges</td>
+                        <td>Assistant Charges</td>
                         <td class="text-end">₹<?= number_format($bill['assistance_charges'] ?? 0, 2) ?></td>
                     </tr>
                     <tr>
-                        <td>Other Charges</td>
+                        <td>Plaster POP /Other Charges</td>
                         <td class="text-end">₹<?= number_format($bill['other_charges'], 2) ?></td>
                     </tr>
                     <tr class="table-light">
@@ -96,7 +104,7 @@
                     </tr>
                     <tr>
                         <td>Discount (<?= number_format($bill['discount_percent'] ?? 0, 2) ?>%)</td>
-                        <td class="text-end">₹<?= number_format($bill['discount'], 2) ?></td>
+                        <td class="text-end">- ₹<?= number_format($bill['discount'], 2) ?></td>
                     </tr>
                     <tr class="table-success">
                         <td><strong>Final Total</strong></td>

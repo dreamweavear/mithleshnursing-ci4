@@ -67,6 +67,51 @@ class Auth extends BaseController
         }
     }
     
+    public function profile()
+    {
+        $data = ['title' => 'My Profile - Mithlesh Nursing Home'];
+        return view('admin/auth/profile', $data);
+    }
+
+    public function changePassword()
+    {
+        $currentPassword = $this->request->getPost('current_password');
+        $newPassword     = $this->request->getPost('new_password');
+        $confirmPassword = $this->request->getPost('confirm_password');
+
+        $errors = [];
+
+        if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+            $errors[] = 'All fields are required.';
+        }
+
+        if (!empty($newPassword) && strlen($newPassword) < 6) {
+            $errors[] = 'New password must be at least 6 characters.';
+        }
+
+        if (!empty($newPassword) && $newPassword !== $confirmPassword) {
+            $errors[] = 'New password and confirm password do not match.';
+        }
+
+        if (empty($errors)) {
+            $user = $this->userModel->find(session()->get('id'));
+            if (!$user || !password_verify($currentPassword, $user['password'])) {
+                $errors[] = 'Current password is incorrect.';
+            }
+        }
+
+        if (!empty($errors)) {
+            return redirect()->back()->with('errors', $errors);
+        }
+
+        $this->userModel->update(session()->get('id'), [
+            'password' => password_hash($newPassword, PASSWORD_DEFAULT)
+        ]);
+
+        return redirect()->to('admin/profile')
+                        ->with('success', 'Password changed successfully.');
+    }
+
     public function logout()
     {
         session()->destroy();

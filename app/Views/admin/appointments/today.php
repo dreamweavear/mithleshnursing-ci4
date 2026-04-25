@@ -45,6 +45,7 @@
                     <th>Doctor</th>
                     <th>Time</th>
                     <th>Reason</th>
+                    <th>Vitals</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -59,8 +60,31 @@
                             <td><?= esc($appointment['doctor_name']) ?></td>
                             <td><?= date('h:i A', strtotime($appointment['appointment_time'])) ?></td>
                             <td><?= character_limiter($appointment['reason'], 30) ?></td>
+                            <td style="font-size:0.82rem; min-width:130px;">
+                                <?php if ($appointment['bp']): ?>
+                                    <div><i class="bi bi-heart-pulse text-danger"></i> BP: <?= esc($appointment['bp']) ?></div>
+                                <?php endif; ?>
+                                <?php if ($appointment['pulse']): ?>
+                                    <div><i class="bi bi-activity text-primary"></i> Pulse: <?= $appointment['pulse'] ?>/min</div>
+                                <?php endif; ?>
+                                <?php if ($appointment['spo2']): ?>
+                                    <div><i class="bi bi-lungs text-info"></i> SpO2: <?= $appointment['spo2'] ?>%</div>
+                                <?php endif; ?>
+                                <?php if ($appointment['rr']): ?>
+                                    <div><i class="bi bi-wind text-secondary"></i> RR: <?= $appointment['rr'] ?>/min</div>
+                                <?php endif; ?>
+                                <?php if ($appointment['temperature']): ?>
+                                    <div><i class="bi bi-thermometer-half text-warning"></i> Temp: <?= $appointment['temperature'] ?>°F</div>
+                                <?php endif; ?>
+                                <?php if ($appointment['weight']): ?>
+                                    <div><i class="bi bi-person text-success"></i> Wt: <?= $appointment['weight'] ?> kg</div>
+                                <?php endif; ?>
+                                <?php if (!$appointment['bp'] && !$appointment['pulse'] && !$appointment['spo2'] && !$appointment['rr'] && !$appointment['temperature'] && !$appointment['weight']): ?>
+                                    <span class="text-muted">—</span>
+                                <?php endif; ?>
+                            </td>
                             <td>
-                                <span class="badge bg-<?= 
+                                <span class="badge bg-<?=
                                     $appointment['status'] == 'Pending' ? 'warning' : 
                                     ($appointment['status'] == 'Confirmed' ? 'info' : 
                                     ($appointment['status'] == 'Completed' ? 'success' : 'danger')) 
@@ -83,7 +107,7 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="8" class="text-center py-4">No appointments for today</td>
+                        <td colspan="9" class="text-center py-4">No appointments for today</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

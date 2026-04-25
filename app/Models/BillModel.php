@@ -10,11 +10,10 @@ class BillModel extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = [
         'bill_number', 'patient_id', 'admission_date', 'discharge_date',
-        'room_charges', 'doctor_fees', 'medicine_charges', 'test_charges',
+        'room_rate', 'room_days', 'room_charges', 'doctor_fees', 'medicine_charges', 'test_charges',
         'surgery_charges', 'anaesthesia_charges', 'ot_charges',
         'nursing_charges', 'assistance_charges',
-        'other_charges', 'total_amount', 'discount', 'discount_percent', 'net_amount',
-        'room_charge_per_day', 'no_of_days',
+        'other_charges', 'discount_percent', 'total_amount', 'discount', 'net_amount',
         'payment_status', 'payment_method', 'notes',
         'created_at', 'updated_at'
     ];

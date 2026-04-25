@@ -66,4 +66,15 @@ class PatientModel extends Model
     {
         return $this->where('DATE(admission_date)', date('Y-m-d'))->countAllResults();
     }
+
+    public function searchPatients($query)
+    {
+        return $this->select('id, patient_id, name, phone, email, patient_type')
+                    ->groupStart()
+                        ->like('name', $query)
+                        ->orLike('patient_id', $query)
+                        ->orLike('phone', $query)
+                    ->groupEnd()
+                    ->findAll(20);
+    }
 }

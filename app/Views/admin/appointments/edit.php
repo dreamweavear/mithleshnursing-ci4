@@ -68,12 +68,42 @@
             <label class="form-label">Reason for Visit</label>
             <textarea name="reason" class="form-control" rows="3"><?= esc($appointment['reason']) ?></textarea>
         </div>
-        
+
         <div class="mb-3">
             <label class="form-label">Notes</label>
             <textarea name="notes" class="form-control" rows="3" placeholder="Additional notes..."><?= esc($appointment['notes']) ?></textarea>
         </div>
-        
+
+        <h5 class="mt-4 mb-3">Vital Signs <small class="text-muted fw-normal fs-6">(Optional)</small></h5>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label">BP (Blood Pressure)</label>
+                <input type="text" name="bp" class="form-control" placeholder="e.g. 120/80" value="<?= esc($appointment['bp']) ?>">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Pulse <small class="text-muted">(beats/min)</small></label>
+                <input type="number" name="pulse" class="form-control" placeholder="e.g. 72" min="0" max="250" value="<?= esc($appointment['pulse']) ?>">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">SpO2 / Oxygen <small class="text-muted">(%)</small></label>
+                <input type="number" name="spo2" class="form-control" placeholder="e.g. 98" min="0" max="100" value="<?= esc($appointment['spo2']) ?>">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label">RR (Respiration Rate) <small class="text-muted">(breaths/min)</small></label>
+                <input type="number" name="rr" class="form-control" placeholder="e.g. 16" min="0" max="100" value="<?= esc($appointment['rr']) ?>">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Temperature <small class="text-muted">(°F)</small></label>
+                <input type="number" name="temperature" class="form-control" placeholder="e.g. 98.6" min="90" max="115" step="0.1" value="<?= esc($appointment['temperature']) ?>">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Weight <small class="text-muted">(kg)</small></label>
+                <input type="number" name="weight" class="form-control" placeholder="e.g. 65.5" min="0" max="300" step="0.1" value="<?= esc($appointment['weight']) ?>">
+            </div>
+        </div>
+
         <div class="text-end">
             <a href="<?= base_url('admin/appointments') ?>" class="btn btn-outline-secondary me-2">Cancel</a>
             <button type="submit" class="btn btn-primary-custom">Update Appointment</button>

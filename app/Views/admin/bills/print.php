@@ -11,17 +11,18 @@
             padding: 40px;
         }
         .bill-header {
-            border-bottom: 3px solid #7C3AED;
+            border-bottom: 3px solid #11998e;
             padding-bottom: 20px;
             margin-bottom: 30px;
         }
         .bill-title {
-            color: #7C3AED;
+            color: #11998e;
             font-weight: 700;
         }
         @media print {
             body {
                 padding: 0;
+                zoom: 80%;
             }
             .no-print {
                 display: none !important;
@@ -39,12 +40,12 @@
                 Close
             </button>
         </div>
-        
+
         <div class="bill-header">
             <div class="row">
                 <div class="col-8">
                     <h2 class="bill-title mb-2">Mithlesh Nursing Home</h2>
-                    <p class="mb-1">Behind Pawar Gas Godown, Allahabad Road, Urrhat,Rewa(M.P.)</p>
+                    <p class="mb-1">Besides Hero Honda Agency, NH-7, Allahabad Road, Urrhat,Rewa(M.P.)</p>
                     <p class="mb-1">Phone: +91 9770921099, 7024745594</p>
                     <p class="mb-0">Email: mithleshnursinghome@gmail.com</p>
                 </div>
@@ -55,7 +56,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row mb-4">
             <div class="col-6">
                 <h5 class="mb-3">Patient Information:</h5>
@@ -75,7 +76,7 @@
                 <?php endif; ?>
             </div>
         </div>
-        
+
         <table class="table table-bordered">
             <thead class="table-light">
                 <tr>
@@ -85,7 +86,12 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Room Charges [₹<?= number_format($bill['room_charge_per_day'] ?? 0, 2) ?>/day] x [<?= (int)($bill['no_of_days'] ?? 0) ?> days]</td>
+                    <td>
+                        Room Charges
+                        <?php if (!empty($bill['room_rate']) || !empty($bill['room_days'])): ?>
+                            [₹<?= number_format($bill['room_rate'], 2) ?>/day] × [<?= (int)$bill['room_days'] ?> days]
+                        <?php endif; ?>
+                    </td>
                     <td class="text-end"><?= number_format($bill['room_charges'], 2) ?></td>
                 </tr>
                 <tr>
@@ -97,11 +103,11 @@
                     <td class="text-end"><?= number_format($bill['medicine_charges'], 2) ?></td>
                 </tr>
                 <tr>
-                    <td>Investigation Charges</td>
+                    <td>X-Ray /  C.Arm / Other Investigation Charges</td>
                     <td class="text-end"><?= number_format($bill['test_charges'], 2) ?></td>
                 </tr>
                 <tr>
-                    <td>Surgery Charges</td>
+                    <td>Surgeon Charges</td>
                     <td class="text-end"><?= number_format($bill['surgery_charges'] ?? 0, 2) ?></td>
                 </tr>
                 <tr>
@@ -117,11 +123,11 @@
                     <td class="text-end"><?= number_format($bill['nursing_charges'] ?? 0, 2) ?></td>
                 </tr>
                 <tr>
-                    <td>Assistance Charges</td>
+                    <td>Assistant Charges</td>
                     <td class="text-end"><?= number_format($bill['assistance_charges'] ?? 0, 2) ?></td>
                 </tr>
                 <tr>
-                    <td>Other Charges</td>
+                    <td>Plaster POP / Other Charges</td>
                     <td class="text-end"><?= number_format($bill['other_charges'], 2) ?></td>
                 </tr>
             </tbody>
@@ -132,7 +138,7 @@
                 </tr>
                 <tr>
                     <td class="text-end">Discount (<?= number_format($bill['discount_percent'] ?? 0, 2) ?>%)</td>
-                    <td class="text-end"><?= number_format($bill['discount'], 2) ?></td>
+                    <td class="text-end">- <?= number_format($bill['discount'], 2) ?></td>
                 </tr>
                 <tr class="table-success">
                     <td class="text-end"><strong>Final Total</strong></td>
@@ -140,14 +146,14 @@
                 </tr>
             </tfoot>
         </table>
-        
+
         <?php if ($bill['notes']): ?>
             <div class="mt-4">
                 <h6>Notes:</h6>
                 <p><?= nl2br(esc($bill['notes'])) ?></p>
             </div>
         <?php endif; ?>
-        
+
         <div class="mt-5 pt-4 border-top">
             <div class="row">
                 <div class="col-6">

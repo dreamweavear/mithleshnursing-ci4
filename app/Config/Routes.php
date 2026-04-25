@@ -29,10 +29,13 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('patients', 'Admin\Patients::index');
     $routes->get('patients/create', 'Admin\Patients::create');
     $routes->post('patients/store', 'Admin\Patients::store');
+    $routes->get('patients/search', 'Admin\Patients::search');
     $routes->get('patients/edit/(:num)', 'Admin\Patients::edit/$1');
     $routes->post('patients/update/(:num)', 'Admin\Patients::update/$1');
     $routes->get('patients/delete/(:num)', 'Admin\Patients::delete/$1');
     $routes->get('patients/view/(:num)', 'Admin\Patients::view/$1');
+    $routes->get('patients/convert-to-ipd/(:num)', 'Admin\Patients::convertToIpd/$1');
+    $routes->post('patients/convert-to-ipd/(:num)', 'Admin\Patients::convertToIpd/$1');
     
     // Staff
     $routes->get('staff', 'Admin\Staff::index');
@@ -55,10 +58,13 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('appointments/today', 'Admin\Appointments::today');
     $routes->get('appointments/create', 'Admin\Appointments::create');
     $routes->post('appointments/store', 'Admin\Appointments::store');
+    $routes->get('appointments/view/(:num)', 'Admin\Appointments::view/$1');
     $routes->get('appointments/edit/(:num)', 'Admin\Appointments::edit/$1');
     $routes->post('appointments/update/(:num)', 'Admin\Appointments::update/$1');
     $routes->get('appointments/delete/(:num)', 'Admin\Appointments::delete/$1');
     $routes->post('appointments/update-status/(:num)', 'Admin\Appointments::updateStatus/$1');
+    $routes->post('appointments/prescription/(:num)', 'Admin\Appointments::savePrescription/$1');
+    $routes->get('appointments/print-prescription/(:num)', 'Admin\Appointments::printPrescription/$1');
     
     // Inquiries
     $routes->get('inquiries', 'Admin\Inquiries::index');
@@ -66,6 +72,10 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->post('inquiries/update-status/(:num)', 'Admin\Inquiries::updateStatus/$1');
     $routes->get('inquiries/delete/(:num)', 'Admin\Inquiries::delete/$1');
     
+    // Profile / Password Change
+    $routes->get('profile', 'Admin\Auth::profile');
+    $routes->post('profile/change-password', 'Admin\Auth::changePassword');
+
     // Bills
     $routes->get('bills', 'Admin\Bills::index');
     $routes->get('bills/create', 'Admin\Bills::create');

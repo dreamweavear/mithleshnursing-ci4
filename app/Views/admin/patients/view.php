@@ -10,6 +10,11 @@
         <a href="<?= base_url('admin/patients/edit/' . $patient['id']) ?>" class="btn btn-primary ms-2">
             <i class="bi bi-pencil me-2"></i>Edit
         </a>
+        <?php if ($patient['patient_type'] === 'OPD'): ?>
+        <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#convertIpdModal">
+            <i class="bi bi-arrow-up-circle me-2"></i>Convert to IPD
+        </button>
+        <?php endif; ?>
     </div>
 </div>
 
@@ -118,4 +123,40 @@
         </div>
     </div>
 </div>
+<?php if ($patient['patient_type'] === 'OPD'): ?>
+<div class="modal fade" id="convertIpdModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="<?= base_url('admin/patients/convert-to-ipd/' . $patient['id']) ?>" method="POST">
+            <?= csrf_field() ?>
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="bi bi-arrow-up-circle me-2"></i>Convert to IPD</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-3">Converting <strong><?= esc($patient['name']) ?></strong> from OPD to IPD admission.</p>
+                    <div class="mb-3">
+                        <label class="form-label">Admission Date <span class="text-danger">*</span></label>
+                        <input type="date" name="admission_date" class="form-control" value="<?= date('Y-m-d') ?>" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Room Number</label>
+                            <input type="text" name="room_number" class="form-control" placeholder="e.g. 101">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Bed Number</label>
+                            <input type="text" name="bed_number" class="form-control" placeholder="e.g. A">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Confirm Convert to IPD</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<?php endif; ?>
 <?= $this->endSection() ?>

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         body {
-            background: linear-gradient(135deg, #4C1D95 0%, #7C3AED 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -24,7 +24,7 @@
             margin: 20px;
         }
         .login-header {
-            background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             color: white;
             padding: 30px;
             text-align: center;
@@ -42,11 +42,11 @@
             border: 2px solid #e9ecef;
         }
         .form-control:focus {
-            border-color: #7C3AED;
-            box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.25);
+            border-color: #11998e;
+            box-shadow: 0 0 0 0.2rem rgba(17, 153, 142, 0.25);
         }
         .btn-login {
-            background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             border: none;
             border-radius: 10px;
             padding: 12px 30px;
@@ -62,10 +62,20 @@
             background: transparent;
             border: 2px solid #e9ecef;
             border-right: none;
-            color: #7C3AED;
+            color: #11998e;
         }
         .form-control {
             border-left: none;
+        }
+        .toggle-password {
+            background: transparent;
+            border: 2px solid #e9ecef;
+            border-left: none;
+            color: #6c757d;
+            cursor: pointer;
+        }
+        .toggle-password:hover {
+            color: #11998e;
         }
     </style>
 </head>
@@ -109,7 +119,10 @@
                     <label class="form-label fw-bold">Password</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                        <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+                        <input type="password" name="password" id="passwordField" class="form-control" placeholder="Enter your password" required>
+                        <button type="button" class="btn toggle-password" onclick="togglePassword()">
+                            <i class="bi bi-eye" id="toggleIcon"></i>
+                        </button>
                     </div>
                     <?php if (session()->getFlashdata('errors')['password'] ?? false): ?>
                         <small class="text-danger"><?= session()->getFlashdata('errors')['password'] ?></small>
@@ -122,11 +135,24 @@
             </form>
             
             <div class="mt-4 text-center text-muted">
-                <small>Default Login:<br>Email: <br>Password: </small>
+                <small>Default Login:<br>Email: admin@Mithleshnursing.com<br>Password: admin123</small>
             </div>
         </div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function togglePassword() {
+            var field = document.getElementById('passwordField');
+            var icon  = document.getElementById('toggleIcon');
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.replace('bi-eye', 'bi-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.replace('bi-eye-slash', 'bi-eye');
+            }
+        }
+    </script>
 </body>
 </html>

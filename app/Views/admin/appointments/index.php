@@ -48,6 +48,9 @@
                                 </span>
                             </td>
                             <td>
+                                <a href="<?= base_url('admin/appointments/view/' . $appointment['id']) ?>" class="btn btn-sm btn-success me-1" title="View / Prescription">
+                                    <i class="bi bi-clipboard2-pulse"></i>
+                                </a>
                                 <a href="<?= base_url('admin/appointments/edit/' . $appointment['id']) ?>" class="btn btn-sm btn-primary me-1" title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </a>
