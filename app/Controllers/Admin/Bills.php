@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\BillModel;
 use App\Models\PatientModel;
+use Dompdf\Dompdf;
 
 class Bills extends BaseController
 {
@@ -269,4 +270,39 @@ class Bills extends BaseController
         return redirect()->to('admin/bills')
                         ->with('success', 'Bill deleted successfully.');
     }
+
+ public function downloadPdf($id)
+{
+    $bill = $this->billModel
+        ->select('bills.*, patients.name as patient_name, patients.patient_id, patients.age, patients.gender, patients.address')
+        ->join('patients', 'patients.id = bills.patient_id')
+        ->where('bills.id', $id)
+        ->first();
+
+    if (!$bill) {
+        return redirect()->to('admin/bills')
+                        ->with('error', 'Bill not found.');
+    }
+
+    
+
+    $html = view('admin/bills/print', ['bill' => $bill]);
+
+    // Buttons hide karo PDF mein
+    $html = str_replace(
+    'id="action-buttons"', 
+    'id="action-buttons" style="display:none;"', 
+    $html
+);
+
+    $dompdf = new \Dompdf\Dompdf();
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'portrait');
+    $dompdf->render();
+    $dompdf->stream('bill-' . $bill['bill_number'] . '.pdf', ['Attachment' => true]);
+}
+
+
+
+
 }
