@@ -240,6 +240,21 @@
             <a href="<?= base_url('admin/bills') ?>" class="<?= (strpos(uri_string(), 'admin/bills') !== false) ? 'active' : '' ?>">
                 <i class="bi bi-receipt"></i> Billing
             </a>
+            <a href="<?= base_url('admin/collection') ?>" class="<?= (strpos(uri_string(), 'admin/collection') !== false) ? 'active' : '' ?>">
+            <i class="bi bi-bar-chart-line"></i> Collection Report
+            </a>
+            <a href="<?= base_url('admin/expenses') ?>" class="<?= (strpos(uri_string(), 'admin/expenses') !== false) ? 'active' : '' ?>">
+                <i class="bi bi-cash-stack"></i> Expenses
+            </a>
+
+            <a href="<?= base_url('admin/expense-report') ?>" class="<?= (strpos(uri_string(), 'admin/expense-report') !== false) ? 'active' : '' ?>">
+            <i class="bi bi-graph-up-arrow"></i> Expense Report
+            </a>
+            <a href="<?= base_url('admin/expense-report/category-month') ?>">
+            <i class="bi bi-pie-chart"></i> Category Report
+            </a>
+
+
             <a href="<?= base_url('admin/inquiries') ?>" class="<?= (strpos(uri_string(), 'admin/inquiries') !== false) ? 'active' : '' ?>">
                 <i class="bi bi-envelope"></i> Inquiries
             </a>

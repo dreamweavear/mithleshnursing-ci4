@@ -87,7 +87,37 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     $routes->get('bills/pdf/(:num)', 'Admin\Bills::downloadPdf/$1');
     $routes->post('bills/update-payment/(:num)', 'Admin\Bills::updatePayment/$1');
     $routes->get('bills/delete/(:num)', 'Admin\Bills::delete/$1');
-});
+    // collection
+    $routes->get('collection', 'Admin\Collection::index');
+    // download pdf and excell
+    //$routes->get('collection/excel', 'Admin\Collection::downloadExcel');
+    //$routes->get('collection/pdf', 'Admin\Collection::downloadPdf');
+
+    //$routes->get('collection', 'Admin\Collection::index');
+    $routes->get('collection/excel', 'Admin\Collection::excel');
+    $routes->get('collection/pdf', 'Admin\Collection::pdf');
+
+    // Expenses
+    $routes->get('expenses', 'Admin\Expenses::index');
+    $routes->get('expenses/create', 'Admin\Expenses::create');
+    $routes->post('expenses/store', 'Admin\Expenses::store');
+    $routes->get('expenses/edit/(:num)', 'Admin\Expenses::edit/$1');
+    $routes->post('expenses/update/(:num)', 'Admin\Expenses::update/$1');
+    $routes->get('expenses/delete/(:num)', 'Admin\Expenses::delete/$1');
+    $routes->get('expense-report', 'Admin\ExpenseReport::index');
+    // Expense Report
+    $routes->get('expense-report', 'Admin\ExpenseReport::index');
+    $routes->get('expense-report/excel', 'Admin\ExpenseReport::excel');
+    $routes->get('expense-report/pdf', 'Admin\ExpenseReport::pdf');
+
+// enhance expense report ke liye route
+    $routes->get('expense-report/category-month', 'Admin\ExpenseReport::categoryMonth');
+
+    $routes->get('expense-report/category-month', 'Admin\ExpenseReport::categoryMonth');
+    $routes->get('expense-report/category-month-excel', 'Admin\ExpenseReport::categoryMonthExcel');
+    $routes->get('expense-report/category-month-pdf', 'Admin\ExpenseReport::categoryMonthPdf');
+
+    });
 
 // Default redirect
 $routes->get('admin', function() {
